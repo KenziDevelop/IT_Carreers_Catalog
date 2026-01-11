@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_home">  <!-- ganti dengan fragment pertama-mu -->
+
+    <!-- Tambahkan fragment nanti -->
+    <fragment
+        android:id="@+id/fragment_home"
+        android:name="com.pab.it_carreers_catalog.ui.home.HomeFragment"
+        android:label="Home" />
+
+    <!-- Tambahkan fragment lain seperti About, Profile -->
+</navigation>
