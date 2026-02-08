@@ -2,21 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Tambahkan izin internet jika Anda berencana mengakses jaringan -->
+    <!-- Izin internet (kalau nanti pakai API atau gambar online) -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/profile_app"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/profile_app"
         android:supportsRtl="true"
         android:theme="@style/Theme.IT_Carreers_Catalog"
         tools:targetApi="31">
 
-        <!-- Aktivitas Launcher yang akan dibuka pertama kali -->
+        <!-- MainActivity sebagai launcher (entry point) -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -26,29 +26,43 @@
             </intent-filter>
         </activity>
 
-        <!-- Deklarasikan semua aktivitas Anda yang lain di sini -->
-        <activity android:name=".OnboardingActivity" />
-        <activity android:name=".FrontEndActivity" />
-        <activity android:name=".BackEndActivity" />
-        <activity android:name=".GameDevActivity" />
-        <activity android:name=".DataAnalystActivity" />
-        <activity android:name=".NetworkEngineerActivity" />
-        <activity android:name=".CloudEngineerActivity" />
-        <activity android:name=".DataScientistActivity" />
+        <!-- Login & Register -->
+        <activity android:name=".LoginActivity" android:exported="false" />
+        <activity android:name=".RegisterActivity" android:exported="false" />
 
-        <!--
-        Asumsi: DashboardActivity adalah aktivitas yang menampilkan detail,
-        dan Anda ingin bisa kembali dari sini.
-        Ganti .DashboardActivity dengan nama Activity yang benar jika asumsi ini salah.
-        -->
+        <!-- Dashboard (Home) -->
         <activity
             android:name=".DashboardActivity"
-            android:parentActivityName=".MainActivity">
-            <!-- Meta-data ini diperlukan untuk mendukung API level yang lebih rendah -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <!-- Profile -->
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false"
+            android:parentActivityName=".DashboardActivity" />
+
+        <!-- About -->
+        <activity
+            android:name=".AboutActivity"
+            android:exported="false"
+            android:parentActivityName=".DashboardActivity" />
+
+        <!-- Detail karier (semua pakai parent Dashboard) -->
+        <activity android:name=".FrontEndActivity" android:exported="false" android:parentActivityName=".DashboardActivity" />
+        <activity android:name=".BackEndActivity" android:exported="false" android:parentActivityName=".DashboardActivity" />
+        <activity android:name=".MobileDevActivity" android:exported="false" android:parentActivityName=".DashboardActivity" />
+        <activity android:name=".GameDevActivity" android:exported="false" android:parentActivityName=".DashboardActivity" />
+        <activity android:name=".DataAnalystActivity" android:exported="false" android:parentActivityName=".DashboardActivity" />
+        <activity android:name=".DataScientistActivity" android:exported="false" android:parentActivityName=".DashboardActivity" />
+        <activity android:name=".UiUxDesignerActivity" android:exported="false" android:parentActivityName=".DashboardActivity" />
+        <activity android:name=".CyberSecurityActivity" android:exported="false" android:parentActivityName=".DashboardActivity" />
+        <activity android:name=".NetworkEngineerActivity" android:exported="false" android:parentActivityName=".DashboardActivity" />
+        <activity android:name=".CloudEngineerActivity" android:exported="false" android:parentActivityName=".DashboardActivity" />
+        <activity android:name=".OnboardingIntroActivity" android:exported="false" />
+        <activity android:name=".OnboardingScreen1Activity" android:exported="false" />
+        <activity android:name=".OnboardingScreen2Activity" android:exported="false" />
+        <activity android:name=".OnboardingScreen3Activity" android:exported="false" />
 
     </application>
 

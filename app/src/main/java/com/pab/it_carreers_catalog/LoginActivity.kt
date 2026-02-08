@@ -15,40 +15,55 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Tombol Sign In
         binding.btnSignin.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
             val password = binding.etPassword.text.toString().trim()
 
-            if (email.isEmpty()) {
-                binding.tilEmail.error = "Email wajib diisi"
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Email dan password harus diisi", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            if (password.isEmpty()) {
-                binding.tilPassword.error = "Password wajib diisi"
-                return@setOnClickListener
-            }
+            val sharedPref = getSharedPreferences("app_pref", MODE_PRIVATE)
+            val savedEmail = sharedPref.getString("email", null)
+            val savedPassword = sharedPref.getString("password", null)
+            val savedUsername = sharedPref.getString("username", "User")  // ambil username dari register
 
-            // Validasi sederhana (nanti bisa diganti dengan Firebase Auth atau SharedPreferences)
-            if (email == "user@example.com" && password == "password123") {
+            if (email == savedEmail && password == savedPassword) {
+                // Login berhasil → simpan status login + username (biar dashboard/profile ambil ini)
+                sharedPref.edit().apply {
+                    putBoolean("is_logged_in", true)
+                    putString("user_email", email)
+                    putString("username", savedUsername)  // pastikan username tersimpan
+                    apply()
+                }
+
                 Toast.makeText(this, "Login berhasil!", Toast.LENGTH_SHORT).show()
-                // Pindah ke Main/Dashboard setelah login sukses
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, DashboardActivity::class.java))
                 finish()
             } else {
                 Toast.makeText(this, "Email atau password salah", Toast.LENGTH_SHORT).show()
             }
         }
 
-        // Sign Up Link
-        binding.tvSignupLink.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java))
-        }
-
         // Lupa Password (placeholder)
         binding.tvForgot.setOnClickListener {
-            Toast.makeText(this, "Fitur lupa password belum tersedia", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Fitur lupa password (coming soon)", Toast.LENGTH_SHORT).show()
+        }
+
+        // Google & Facebook (placeholder)
+        binding.btnGoogle.setOnClickListener {
+            Toast.makeText(this, "Login Google (coming soon)", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.btnFacebook.setOnClickListener {
+            Toast.makeText(this, "Login Facebook (coming soon)", Toast.LENGTH_SHORT).show()
+        }
+
+        // Link Sign Up
+        binding.tvSignup.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+            finish()
         }
     }
 }
